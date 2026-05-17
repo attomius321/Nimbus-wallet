@@ -1,0 +1,64 @@
+{
+  "manifest_version": 3,
+
+  "name": "Nimbus",
+  "description": "Ethereum wallet browser extension",
+  "version": "0.1.0",
+
+  "permissions": [
+    "storage",
+    "sidePanel",
+    "tabs",
+    "notifications"
+  ],
+
+  "host_permissions": [
+    "https://*/*",
+    "http://*/*"
+  ],
+
+  "action": {
+    "default_title": "Open Nimbus",
+    "default_popup": "sidepanel.html"
+  },
+
+  "background": {
+    "scripts": [
+      "background.js"
+    ]
+  },
+
+  "side_panel": {
+    "default_path": "sidepanel.html"
+  },
+
+  "content_scripts": [
+    {
+      "matches": [
+        "https://*/*",
+        "http://*/*"
+      ],
+      "js": [
+        "content-script.js"
+      ],
+      "type": "module",
+      "run_at": "document_idle"
+    }
+  ],
+
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "injected.js"
+      ],
+      "matches": [
+        "https://*/*",
+        "http://*/*"
+      ]
+    }
+  ],
+
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self';"
+  }
+}

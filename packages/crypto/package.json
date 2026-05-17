@@ -1,0 +1,34 @@
+{
+  "name": "@repo/crypto",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "scripts": {
+    "build": "rm -rf dist && tsc && tsc-alias",
+    "serve": "tsc && node dist/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "type": "module",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@noble/curves": "^2.2.0",
+    "@noble/hashes": "^2.2.0",
+    "@scure/bip32": "^2.2.0",
+    "@scure/bip39": "^2.2.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.19.19",
+    "eslint": "^9.39.1",
+    "tsc-alias": "^1.8.17",
+    "typescript": "5.9.2"
+  }
+}

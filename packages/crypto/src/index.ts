@@ -1,0 +1,4 @@
+export type { EncryptedVault } from './types.js'
+
+export { generateWallet, derivePrivateKeyForAccount } from './wallet/index.js'
+export { encryptMnemonic, decryptMnemonic } from './vault/index.js'
