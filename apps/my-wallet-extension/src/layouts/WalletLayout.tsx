@@ -1,6 +1,9 @@
 import { Outlet, useNavigate, useLocation } from 'react-router-dom'
 import { Button } from '@/components/ui/button'
-import { AddressDialog } from '@/components/composites/AddressDialog'
+import { AddressDialog } from '@/components/composites/addressDialog/AddressDialog'
+import { AddressDisplay } from '@/components/composites/AddressDisplay'
+import { useWalletStore } from '@/store/walletStore'
+import { MenuDialog } from '@/components/composites/menuDialog/MenuDialog'
 
 export function WalletLayout() {
   return (
@@ -15,9 +18,14 @@ export function WalletLayout() {
 }
 
 function Header() {
+  const { address } = useWalletStore()
   return (
     <header className="flex items-center justify-between border-b border-neutral-800 px-4 py-3">
-      <AddressDialog />
+      <div className="flex flex-col items-start gap-2">
+        <AddressDialog />
+        {address && <AddressDisplay address={address} />}
+      </div>
+      <MenuDialog />
     </header>
   )
 }

@@ -28,18 +28,28 @@ function DialogBackdrop({ className, ...props }: DialogPrimitive.Backdrop.Props)
   )
 }
 
-function DialogContent({ className, children, ...props }: DialogPrimitive.Popup.Props) {
+interface DialogContentProps extends DialogPrimitive.Popup.Props {
+  fullScreen?: boolean
+  side?: boolean
+}
+
+function DialogContent({ className, children, fullScreen, side, ...props }: DialogContentProps) {
   return (
     <DialogPortal>
       <DialogBackdrop />
       <DialogPrimitive.Popup
         data-slot="dialog-content"
         className={cn(
-          'fixed top-1/2 left-1/2 z-50 w-full max-w-sm -translate-x-1/2 -translate-y-1/2',
-          'rounded-xl border border-neutral-800 bg-neutral-900 p-6 shadow-xl',
-          'transition-all duration-200',
-          'data-[starting-style]:scale-95 data-[starting-style]:opacity-0',
-          'data-[ending-style]:scale-95 data-[ending-style]:opacity-0',
+          'fixed z-50 bg-neutral-900 shadow-xl transition-all duration-300',
+          side && 'inset-y-0 right-0 w-full',
+          fullScreen && 'inset-0 rounded-none',
+          !side &&
+            !fullScreen &&
+            'top-1/2 left-1/2 w-full max-w-sm -translate-x-1/2 -translate-y-1/2 rounded-xl border border-neutral-800 p-6',
+          side && 'data-[ending-style]:translate-x-full data-[starting-style]:translate-x-full',
+          fullScreen && 'data-[ending-style]:translate-y-4 data-[starting-style]:translate-y-4',
+          !side && !fullScreen && 'data-[ending-style]:scale-95 data-[starting-style]:scale-95',
+          'data-[ending-style]:opacity-0 data-[starting-style]:opacity-0',
           className
         )}
         {...props}
@@ -71,9 +81,7 @@ function DialogDescription({ className, ...props }: DialogPrimitive.Description.
 }
 
 function DialogClose({ className, ...props }: DialogPrimitive.Close.Props) {
-  return (
-    <DialogPrimitive.Close data-slot="dialog-close" className={cn('mt-4', className)} {...props} />
-  )
+  return <DialogPrimitive.Close data-slot="dialog-close" className={cn(className)} {...props} />
 }
 
 export { Dialog, DialogTrigger, DialogContent, DialogTitle, DialogDescription, DialogClose }

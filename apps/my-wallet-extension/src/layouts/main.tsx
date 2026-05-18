@@ -5,6 +5,7 @@ import '../index.css'
 import { Spinner } from '../components/ui/spinner'
 import { routerFor } from '../routes/routes'
 import type { WalletStateMessage } from '../shared/messages'
+import { useWalletStore } from '@/store/walletStore'
 
 if (!('sidePanel' in chrome)) {
   document.body.classList.add('popup')
@@ -15,14 +16,36 @@ const router = routerFor()
 function App() {
   const [ready, setReady] = useState(false)
   const navigated = useRef(false)
+  const { setWalletState } = useWalletStore.getState()
+
+  useEffect(() => {
+    const unsubscribe = useWalletStore.subscribe((state, prevState) => {
+      if (!state.unlocked && prevState.unlocked) {
+        router.navigate('/unlock', { replace: true })
+      }
+    })
+    return unsubscribe
+  }, [])
 
   useEffect(() => {
     chrome.runtime
       .sendMessage({ source: 'ui', type: 'GET_WALLET_STATE' })
       .then((res: WalletStateMessage) => {
         let path = '/'
-        if (res.initialized && res.unlocked) path = '/dashboard'
-        else if (res.initialized) path = '/unlock'
+        if (res.initialized && res.unlocked) {
+          path = '/dashboard'
+          setWalletState({
+            address: res.address,
+            initialized: res.initialized,
+            unlocked: res.unlocked,
+          })
+        } else if (res.initialized) {
+          path = '/unlock'
+          setWalletState({
+            initialized: res.initialized,
+            unlocked: false,
+          })
+        }
         if (!navigated.current) {
           navigated.current = true
           router.navigate(path, { replace: true })

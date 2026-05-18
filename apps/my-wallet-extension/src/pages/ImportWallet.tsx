@@ -4,8 +4,11 @@ import { Input } from '@/components/ui/input'
 import { useState, type ChangeEvent } from 'react'
 import WalletWorker from '@/workers/wallet.worker.ts?worker'
 import { useStoreVault } from '@/hooks/useStoreVault'
+import { useNavigate } from 'react-router-dom'
+import { Logo } from '@/components/logo/Logo'
 
 export function ImportWallet() {
+  const navigate = useNavigate()
   const [state, setState] = useState<'error' | 'idle'>('idle')
   const [walletState, setWalletState] = useState<{ mnemonic: string[]; address: string }>({
     mnemonic: Array(12).fill(''),
@@ -43,11 +46,11 @@ export function ImportWallet() {
 
   return (
     <div className="flex h-screen flex-col p-4">
-      <BackButton />
+      <BackButton onClick={() => navigate(-1)} />
       <div className="flex flex-1 flex-col items-center justify-center gap-8 px-6">
         <div className="flex flex-col items-center gap-2 text-center">
-          <div className="mb-2 flex h-16 w-16 items-center justify-center rounded-2xl bg-neutral-800 text-3xl">
-            ◈
+          <div className="mb-2 flex h-64 w-64 items-center justify-center rounded-2xl text-3xl">
+            <Logo className="h-64 w-64" />
           </div>
           <h1 className="text-2xl font-bold tracking-tight">Import Wallet</h1>
           <div className="flex flex-col items-center gap-4 text-sm leading-relaxed text-neutral-400">

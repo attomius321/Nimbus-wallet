@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 import { Button } from '@/components/ui/button'
+import { Logo } from '@/components/logo/Logo'
 
 export function Welcome() {
   const navigate = useNavigate()
@@ -7,8 +8,8 @@ export function Welcome() {
   return (
     <div className="flex h-screen flex-col items-center justify-center gap-8 bg-neutral-950 px-6 text-white">
       <div className="flex flex-col items-center gap-2 text-center">
-        <div className="mb-2 flex h-16 w-16 items-center justify-center rounded-2xl bg-neutral-800 text-3xl">
-          ◈
+        <div className="mb-2 flex h-64 w-64 items-center justify-center rounded-2xl text-3xl">
+          <Logo className="h-64 w-64" />
         </div>
         <h1 className="text-2xl font-bold tracking-tight">Nimbus</h1>
         <p className="text-sm leading-relaxed text-neutral-400">

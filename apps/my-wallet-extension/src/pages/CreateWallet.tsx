@@ -5,8 +5,10 @@ import WalletWorker from '@/workers/wallet.worker.ts?worker'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { useStoreVault } from '@/hooks/useStoreVault'
+import { useNavigate } from 'react-router-dom'
 
 export function CreateWallet() {
+  const navigate = useNavigate()
   const [state, setState] = useState<'loading' | 'error' | 'success'>('loading')
   const [walletState, setWalletState] = useState<{ mnemonic: string; address: string } | null>(null)
   const [password, setPassword] = useState('')
@@ -37,7 +39,7 @@ export function CreateWallet() {
 
   return (
     <div className="flex h-screen flex-col p-4">
-      <BackButton />
+      <BackButton onClick={() => navigate(-1)} />
       <div className="flex flex-1 items-center justify-center">
         {state === 'loading' && <Spinner className="size-10 text-blue-500" />}
         {state !== 'loading' && walletState && (
