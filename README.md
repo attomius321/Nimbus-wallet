@@ -2,10 +2,12 @@
 
 Non-custodial browser wallet extension for Ethereum and EVM-compatible chains.
 
-Uses standard secp256k1 keys with BIP-44 derivation 
+Uses standard secp256k1 keys with BIP-44 derivation
+
 <pre>
 m / purpose' / coin_type' / account' / change / address_index
 </pre>
+
 with coin_type hardcoded to Ethereum.
 
 ### Features

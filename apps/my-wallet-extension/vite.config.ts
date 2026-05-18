@@ -11,7 +11,7 @@ function manifestPlugin(browser: 'chrome' | 'firefox') {
     closeBundle() {
       copyFileSync(
         resolve(__dirname, `public/manifest.${browser}.json`),
-        resolve(__dirname, 'dist/manifest.json'),
+        resolve(__dirname, 'dist/manifest.json')
       )
     },
   }
@@ -46,9 +46,7 @@ export default defineConfig(({ mode }) => {
           // Extension scripts must land at a predictable path (no hash)
           entryFileNames: (chunk) => {
             const extensionScripts = ['background', 'content-script', 'injected']
-            return extensionScripts.includes(chunk.name)
-              ? '[name].js'
-              : 'assets/[name]-[hash].js'
+            return extensionScripts.includes(chunk.name) ? '[name].js' : 'assets/[name]-[hash].js'
           },
           chunkFileNames: 'assets/[name]-[hash].js',
           assetFileNames: 'assets/[name]-[hash][extname]',

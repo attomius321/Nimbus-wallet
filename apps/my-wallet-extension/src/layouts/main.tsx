@@ -17,7 +17,8 @@ function App() {
   const navigated = useRef(false)
 
   useEffect(() => {
-    chrome.runtime.sendMessage({ source: 'ui', type: 'GET_WALLET_STATE' })
+    chrome.runtime
+      .sendMessage({ source: 'ui', type: 'GET_WALLET_STATE' })
       .then((res: WalletStateMessage) => {
         let path = '/'
         if (res.initialized && res.unlocked) path = '/dashboard'
@@ -33,8 +34,8 @@ function App() {
 
   if (!ready) {
     return (
-      <div className="h-screen bg-neutral-950 flex items-center justify-center">
-        <Spinner className="text-blue-500 size-10" />
+      <div className="flex h-screen items-center justify-center bg-neutral-950">
+        <Spinner className="size-10 text-blue-500" />
       </div>
     )
   }
@@ -45,5 +46,5 @@ function App() {
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <App />
-  </StrictMode>,
+  </StrictMode>
 )

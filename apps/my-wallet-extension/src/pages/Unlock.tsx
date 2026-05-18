@@ -38,26 +38,24 @@ export function Unlock() {
   }
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen bg-neutral-950 text-white gap-8 px-6">
+    <div className="flex h-screen flex-col items-center justify-center gap-8 bg-neutral-950 px-6 text-white">
       <div className="flex flex-col items-center gap-2 text-center">
-        <div className="w-16 h-16 rounded-2xl bg-neutral-800 flex items-center justify-center text-3xl mb-2">
+        <div className="mb-2 flex h-16 w-16 items-center justify-center rounded-2xl bg-neutral-800 text-3xl">
           ◈
         </div>
         <h1 className="text-2xl font-bold tracking-tight">Unlock Wallet</h1>
-        <p className="text-neutral-400 text-sm leading-relaxed">
-          Enter your password to continue.
-        </p>
+        <p className="text-sm leading-relaxed text-neutral-400">Enter your password to continue.</p>
       </div>
-      <div className="flex flex-col gap-3 w-full">
+      <div className="flex w-full flex-col gap-3">
         <Input
           type="password"
           placeholder="Password"
           value={password}
           onChange={(e: ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
           onKeyDown={(e) => e.key === 'Enter' && handleUnlock()}
-          className="bg-neutral-800 border-neutral-700 text-white placeholder:text-neutral-500"
+          className="border-neutral-700 bg-neutral-800 text-white placeholder:text-neutral-500"
         />
-        {error && <p className="text-red-400 text-sm">{error}</p>}
+        {error && <p className="text-sm text-red-400">{error}</p>}
         <Button className="w-full" disabled={!password || loading} onClick={handleUnlock}>
           {loading ? 'Unlocking…' : 'Unlock'}
         </Button>

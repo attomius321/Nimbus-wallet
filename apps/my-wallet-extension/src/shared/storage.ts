@@ -1,4 +1,4 @@
-import type { EncryptedVault } from "@repo/crypto"
+import type { EncryptedVault } from '@repo/crypto'
 
 export interface LocalStorage {
   vault?: EncryptedVault
@@ -6,7 +6,9 @@ export interface LocalStorage {
   initialized?: boolean
 }
 
-export async function getStorage<K extends keyof LocalStorage>(keys: K[]): Promise<Pick<LocalStorage, K>> {
+export async function getStorage<K extends keyof LocalStorage>(
+  keys: K[]
+): Promise<Pick<LocalStorage, K>> {
   return chrome.storage.local.get(keys) as Promise<Pick<LocalStorage, K>>
 }
 

@@ -22,6 +22,11 @@ window.addEventListener('message', (event) => {
 
 // Bridge: extension background → page
 chrome.runtime.onMessage.addListener((message: EthResponseMessage) => {
-  if (message.type !== 'ETH_RESPONSE' && message.type !== 'ACCOUNTS_CHANGED' && message.type !== 'CHAIN_CHANGED') return
+  if (
+    message.type !== 'ETH_RESPONSE' &&
+    message.type !== 'ACCOUNTS_CHANGED' &&
+    message.type !== 'CHAIN_CHANGED'
+  )
+    return
   window.postMessage(message, '*')
 })

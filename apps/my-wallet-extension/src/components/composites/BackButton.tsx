@@ -9,7 +9,7 @@ export function BackButton() {
     <Button
       variant="ghost"
       size="icon"
-      className="self-start text-neutral-400 hover:text-white hover:bg-transparent"
+      className="self-start text-neutral-400 hover:bg-transparent hover:text-white"
       onClick={() => navigate(-1)}
     >
       <ArrowLeft className="size-6" />

@@ -1,6 +1,6 @@
 export function Settings() {
   return (
-    <div className="flex items-center justify-center h-full text-neutral-500 pt-20">
+    <div className="flex h-full items-center justify-center pt-20 text-neutral-500">
       Settings — coming soon
     </div>
   )

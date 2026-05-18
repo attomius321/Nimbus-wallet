@@ -1,9 +1,10 @@
 import { Outlet, useNavigate, useLocation } from 'react-router-dom'
 import { Button } from '@/components/ui/button'
+import { AddressDialog } from '@/components/composites/AddressDialog'
 
 export function WalletLayout() {
   return (
-    <div className="h-screen bg-neutral-950 text-white flex flex-col">
+    <div className="flex h-screen flex-col bg-neutral-950 text-white">
       <Header />
       <main className="flex-1 overflow-y-auto">
         <Outlet />
@@ -15,11 +16,8 @@ export function WalletLayout() {
 
 function Header() {
   return (
-    <header className="flex items-center justify-between px-4 py-3 border-b border-neutral-800">
-      <span className="font-bold text-lg tracking-tight">Nimbus</span>
-      <span className="text-xs bg-neutral-800 text-neutral-300 px-2 py-1 rounded-full">
-        Ethereum
-      </span>
+    <header className="flex items-center justify-between border-b border-neutral-800 px-4 py-3">
+      <AddressDialog />
     </header>
   )
 }
@@ -42,9 +40,9 @@ function BottomNav() {
           key={item.path}
           variant="ghost"
           onClick={() => navigate(item.path)}
-          className={`flex-1 rounded-none py-3 text-xs font-medium h-auto transition-colors ${
+          className={`h-auto flex-1 rounded-none py-3 text-xs font-medium transition-colors ${
             location.pathname === item.path
-              ? 'text-white border-t border-white'
+              ? 'border-t border-white text-white'
               : 'text-neutral-500 hover:text-neutral-300'
           }`}
         >

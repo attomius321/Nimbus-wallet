@@ -1,25 +1,27 @@
 import { useNavigate } from 'react-router-dom'
 import { Button } from '@/components/ui/button'
+import { MainBalance } from '@/components/composites/MainBalance'
 
 export function Dashboard() {
   const navigate = useNavigate()
 
   return (
     <div className="flex flex-col gap-6 p-4 pt-6">
-      <div className="flex flex-col items-center gap-1">
-        <span className="text-neutral-400 text-sm">Total Balance</span>
-        <span className="text-4xl font-bold">$0.00</span>
-        <span className="text-neutral-500 text-sm">0 ETH</span>
-      </div>
-
-      <div className="flex gap-3 justify-center">
-        <Button variant="secondary" onClick={() => navigate('/send')}>Send</Button>
-        <Button variant="secondary" onClick={() => navigate('/receive')}>Receive</Button>
-        <Button variant="secondary" onClick={() => {}}>Swap</Button>
+      <MainBalance symbol="ETH" balance="0" usdValue="$0.00" />
+      <div className="flex justify-center gap-3">
+        <Button variant="secondary" onClick={() => navigate('/send')}>
+          Send
+        </Button>
+        <Button variant="secondary" onClick={() => navigate('/receive')}>
+          Receive
+        </Button>
+        <Button variant="secondary" onClick={() => {}}>
+          Swap
+        </Button>
       </div>
 
       <section>
-        <h2 className="text-neutral-400 text-xs uppercase tracking-widest mb-3">Tokens</h2>
+        <h2 className="mb-3 text-xs tracking-widest text-neutral-400 uppercase">Tokens</h2>
         <div className="flex flex-col gap-2">
           <TokenRow symbol="ETH" name="Ethereum" balance="0" usdValue="$0.00" />
         </div>
@@ -40,19 +42,19 @@ function TokenRow({
   usdValue: string
 }) {
   return (
-    <div className="flex items-center justify-between bg-neutral-900 rounded-xl px-4 py-3">
+    <div className="flex items-center justify-between rounded-xl bg-neutral-900 px-4 py-3">
       <div className="flex items-center gap-3">
-        <div className="w-8 h-8 rounded-full bg-neutral-700 flex items-center justify-center text-xs font-bold">
+        <div className="flex h-8 w-8 items-center justify-center rounded-full bg-neutral-700 text-xs font-bold">
           {symbol[0]}
         </div>
         <div>
           <div className="text-sm font-medium">{symbol}</div>
-          <div className="text-neutral-500 text-xs">{name}</div>
+          <div className="text-xs text-neutral-500">{name}</div>
         </div>
       </div>
       <div className="text-right">
         <div className="text-sm">{balance}</div>
-        <div className="text-neutral-500 text-xs">{usdValue}</div>
+        <div className="text-xs text-neutral-500">{usdValue}</div>
       </div>
     </div>
   )

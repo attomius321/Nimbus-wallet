@@ -1,6 +1,10 @@
 import { encryptMnemonic, decryptMnemonic } from '@repo/crypto'
 import type { EncryptedVault } from '@repo/crypto'
-import type { StoreVaultMessage, UnlockVaultMessage, VaultResponseMessage } from '../shared/messages'
+import type {
+  StoreVaultMessage,
+  UnlockVaultMessage,
+  VaultResponseMessage,
+} from '../shared/messages'
 import { setSession } from './session'
 import { getStorage, setStorage, type LocalStorage } from '@/shared/storage'
 
@@ -10,7 +14,7 @@ export async function handleStoreVault(msg: StoreVaultMessage, sendResponse: Sen
   try {
     const vault = await encryptMnemonic(msg.mnemonic, msg.password)
     const toStore: LocalStorage = { vault, address: msg.address, initialized: true }
-    await setStorage(toStore);
+    await setStorage(toStore)
     setSession(msg.mnemonic, msg.address)
     sendResponse({ source: 'background', type: 'VAULT_RESPONSE', ok: true, address: msg.address })
   } catch (err) {
@@ -19,16 +23,31 @@ export async function handleStoreVault(msg: StoreVaultMessage, sendResponse: Sen
 }
 
 export async function handleUnlockVault(msg: UnlockVaultMessage, sendResponse: SendResponse) {
-  const stored: LocalStorage = await getStorage(['vault', 'address']) as LocalStorage
+  const stored: LocalStorage = (await getStorage(['vault', 'address'])) as LocalStorage
   if (!stored.vault) {
-    sendResponse({ source: 'background', type: 'VAULT_RESPONSE', ok: false, error: 'No vault found' })
+    sendResponse({
+      source: 'background',
+      type: 'VAULT_RESPONSE',
+      ok: false,
+      error: 'No vault found',
+    })
     return
   }
   try {
     const mnemonic = await decryptMnemonic(stored.vault as EncryptedVault, msg.password)
     setSession(mnemonic, stored.address as string)
-    sendResponse({ source: 'background', type: 'VAULT_RESPONSE', ok: true, address: stored.address })
+    sendResponse({
+      source: 'background',
+      type: 'VAULT_RESPONSE',
+      ok: true,
+      address: stored.address,
+    })
   } catch {
-    sendResponse({ source: 'background', type: 'VAULT_RESPONSE', ok: false, error: 'Wrong password' })
+    sendResponse({
+      source: 'background',
+      type: 'VAULT_RESPONSE',
+      ok: false,
+      error: 'Wrong password',
+    })
   }
 }

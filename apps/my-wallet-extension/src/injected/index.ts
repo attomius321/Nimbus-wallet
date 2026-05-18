@@ -1,4 +1,9 @@
-import type { AccountsChangedMessage, ChainChangedMessage, EthRequestMessage, EthResponseMessage } from '../shared/messages'
+import type {
+  AccountsChangedMessage,
+  ChainChangedMessage,
+  EthRequestMessage,
+  EthResponseMessage,
+} from '../shared/messages'
 
 // EIP-1193 compliant provider injected into page context
 let requestId = 0
@@ -80,5 +85,5 @@ window.dispatchEvent(
       },
       provider,
     }),
-  }),
+  })
 )

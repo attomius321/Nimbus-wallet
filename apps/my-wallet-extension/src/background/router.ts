@@ -6,7 +6,12 @@ import { getStorage } from '../shared/storage'
 
 type SendResponse = (response: unknown) => void
 
-const router: Partial<Record<ExtensionMessage['type'], (msg: any, sendResponse: SendResponse, sender: chrome.runtime.MessageSender) => boolean | void>> = {
+const router: Partial<
+  Record<
+    ExtensionMessage['type'],
+    (msg: any, sendResponse: SendResponse, sender: chrome.runtime.MessageSender) => boolean | void
+  >
+> = {
   STORE_VAULT: (msg, sendResponse) => {
     handleStoreVault(msg, sendResponse)
     return true
@@ -31,7 +36,7 @@ const router: Partial<Record<ExtensionMessage['type'], (msg: any, sendResponse: 
       sendResponse(res)
     })
     return true
-  }
+  },
 }
 
 chrome.runtime.onMessage.addListener((message: ExtensionMessage, _sender, sendResponse) => {
