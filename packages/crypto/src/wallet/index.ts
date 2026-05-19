@@ -1,5 +1,5 @@
 import { PASSPHRASE, N } from "@/constants/index.js";
-import { toHex } from "@/helpers/index.js";
+import { toCheckSumAddress, toHex } from "@/helpers/index.js";
 import { secp256k1 } from "@noble/curves/secp256k1.js";
 import { keccak_256 } from "@noble/hashes/sha3.js";
 import { HDKey } from "@scure/bip32";
@@ -44,7 +44,7 @@ export function generateWallet(initialMnemonic?: string): {
 
   const publicKey = secp256k1.getPublicKey(privateKey, false); // uncompressed
   const hash = keccak_256(publicKey.slice(1)); // drop 0x04 prefix
-  const address = "0x" + toHex(hash.slice(-20));
+  const address = toCheckSumAddress("0x" + toHex(hash.slice(-20)));
 
   return { mnemonic, address };
 }
