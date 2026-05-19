@@ -14,9 +14,10 @@ with coin_type hardcoded to Ethereum.
 
 1. Create HD wallet (BIP-39 mnemonic generation)
 2. Import HD wallet from existing mnemonic
-3. Encrypt vault with AES-GCM, key derived via PBKDF2 (600k iterations)
-4. Lock/unlock
-5. Chrome side panel + firefox popup support
+3. Generate checksummed address (EIP-55)
+4. Encrypt vault with AES-GCM, key derived via PBKDF2 (600k iterations)
+5. Lock/unlock
+6. Chrome side panel + firefox popup support
 
 ### Security
 
