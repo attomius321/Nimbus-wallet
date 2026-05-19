@@ -5,7 +5,6 @@ import { useState, type ChangeEvent } from 'react'
 import WalletWorker from '@/workers/wallet.worker.ts?worker'
 import { useStoreVault } from '@/hooks/useStoreVault'
 import { useNavigate } from 'react-router-dom'
-import { Logo } from '@/components/logo/Logo'
 
 export function ImportWallet() {
   const navigate = useNavigate()
@@ -49,9 +48,6 @@ export function ImportWallet() {
       <BackButton onClick={() => navigate(-1)} />
       <div className="flex flex-1 flex-col items-center justify-center gap-8 px-6">
         <div className="flex flex-col items-center gap-2 text-center">
-          <div className="mb-2 flex h-64 w-64 items-center justify-center rounded-2xl text-3xl">
-            <Logo className="h-64 w-64" />
-          </div>
           <h1 className="text-2xl font-bold tracking-tight">Import Wallet</h1>
           <div className="flex flex-col items-center gap-4 text-sm leading-relaxed text-neutral-400">
             <p>Enter your 12-word mnemonic phrase and set a password to import your wallet.</p>

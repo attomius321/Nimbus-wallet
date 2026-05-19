@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import type { VaultResponseMessage } from '@/shared/messages'
-import { useWalletStore } from '@/store/walletStore'
 import { Logo } from '@/components/logo/Logo'
 
 export function Unlock() {
@@ -11,7 +10,6 @@ export function Unlock() {
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
-  const { setWalletState } = useWalletStore.getState()
 
   async function handleUnlock() {
     if (!password) return
@@ -24,7 +22,6 @@ export function Unlock() {
         password,
       })
       if (res.ok) {
-        setWalletState({ address: res.address, unlocked: true, initialized: true })
         navigate('/dashboard')
       } else {
         setError('Wrong password. Try again.')

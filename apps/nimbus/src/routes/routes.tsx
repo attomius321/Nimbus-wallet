@@ -1,11 +1,21 @@
 import { createHashRouter } from 'react-router-dom'
 import { WelcomeLayout } from '../layouts/WelcomeLayout'
 import { WalletLayout } from '../layouts/WalletLayout'
+import { Spinner } from '@/components/ui/spinner'
 
-export const routerFor = () =>
+function Loading() {
+  return (
+    <div className="flex h-screen items-center justify-center bg-neutral-950">
+      <Spinner className="size-8 text-blue-500" />
+    </div>
+  )
+}
+
+export const createRouter = () =>
   createHashRouter([
     {
       element: <WelcomeLayout />,
+      HydrateFallback: Loading,
       children: [
         {
           path: '/',
@@ -27,6 +37,7 @@ export const routerFor = () =>
     },
     {
       element: <WalletLayout />,
+      HydrateFallback: Loading,
       children: [
         {
           path: '/dashboard',

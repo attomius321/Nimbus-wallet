@@ -18,7 +18,7 @@ export function CreateWallet() {
     const worker = new WalletWorker()
 
     worker.onmessage = (e) => {
-      const { ok, mnemonic, address } = e.data
+      let { ok, mnemonic, address } = e.data
       if (ok) {
         setState('success')
         setWalletState({ mnemonic, address })

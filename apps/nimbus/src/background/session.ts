@@ -5,6 +5,16 @@
  * When the service worker is killed, the session information will be lost and the user will have to unlock the vault again.
  */
 
+export function sendWalletState({ address }: { address: string | null }) {
+  chrome.runtime.sendMessage({
+    source: 'background',
+    type: 'WALLET_STATE',
+    initialized: true,
+    unlocked: true,
+    address,
+  })
+}
+
 let sessionMnemonic: string | null = null
 let sessionAddress: string | null = null
 
@@ -19,11 +29,13 @@ export function getSessionAddress() {
 export function setSession(mnemonic: string, address: string) {
   sessionMnemonic = mnemonic
   sessionAddress = address
+  sendWalletState({ address })
 }
 
 export function lockVault() {
   sessionMnemonic = null
   sessionAddress = null
+  sendWalletState({ address: null })
 }
 
 export function isUnlocked() {

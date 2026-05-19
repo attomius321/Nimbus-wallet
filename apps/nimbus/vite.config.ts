@@ -11,7 +11,7 @@ function manifestPlugin(browser: 'chrome' | 'firefox') {
     closeBundle() {
       copyFileSync(
         resolve(__dirname, `public/manifest.${browser}.json`),
-        resolve(__dirname, 'dist/manifest.json')
+        resolve(__dirname, `dist/${browser}/manifest.json`)
       )
     },
   }
@@ -34,7 +34,7 @@ export default defineConfig(({ mode }) => {
       manifestPlugin(browser),
     ],
     build: {
-      outDir: 'dist',
+      outDir: `dist/${browser}`,
       emptyOutDir: true,
       rollupOptions: {
         input: {

@@ -3,7 +3,7 @@ import { createRoot } from 'react-dom/client'
 import { RouterProvider } from 'react-router-dom'
 import '../index.css'
 import { Spinner } from '../components/ui/spinner'
-import { routerFor } from '../routes/routes'
+import { createRouter } from '../routes/routes'
 import type { WalletStateMessage } from '../shared/messages'
 import { useWalletStore } from '@/store/walletStore'
 
@@ -11,7 +11,7 @@ if (!('sidePanel' in chrome)) {
   document.body.classList.add('popup')
 }
 
-const router = routerFor()
+const router = createRouter()
 
 function App() {
   const [ready, setReady] = useState(false)
@@ -25,6 +25,17 @@ function App() {
       }
     })
     return unsubscribe
+  }, [])
+
+  useEffect(() => {
+    const listener = (message: WalletStateMessage) => {
+      console.log('hereee')
+      if (message.type === 'WALLET_STATE') {
+        setWalletState(message)
+      }
+    }
+    chrome.runtime.onMessage.addListener(listener)
+    return () => chrome.runtime.onMessage.removeListener(listener)
   }, [])
 
   useEffect(() => {

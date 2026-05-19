@@ -18,16 +18,9 @@
     }
   },
 
-  "permissions": [
-    "storage",
-    "tabs",
-    "notifications"
-  ],
+  "permissions": ["storage", "tabs", "notifications"],
 
-  "host_permissions": [
-    "https://*/*",
-    "http://*/*"
-  ],
+  "host_permissions": ["https://*/*", "http://*/*"],
 
   "action": {
     "default_title": "Open Nimbus",
@@ -40,26 +33,16 @@
 
   "content_scripts": [
     {
-      "matches": [
-        "https://*/*",
-        "http://*/*"
-      ],
-      "js": [
-        "content-script.js"
-      ],
+      "matches": ["https://*/*", "http://*/*"],
+      "js": ["content-script.js"],
       "run_at": "document_idle"
     }
   ],
 
   "web_accessible_resources": [
     {
-      "resources": [
-        "injected.js"
-      ],
-      "matches": [
-        "https://*/*",
-        "http://*/*"
-      ]
+      "resources": ["injected.js"],
+      "matches": ["https://*/*", "http://*/*"]
     }
   ],
 
