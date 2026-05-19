@@ -10,7 +10,7 @@ function manifestPlugin(browser: 'chrome' | 'firefox') {
     name: 'copy-manifest',
     closeBundle() {
       copyFileSync(
-        resolve(__dirname, `public/manifest.${browser}.json`),
+        resolve(__dirname, `manifests/manifest.${browser}.json`),
         resolve(__dirname, `dist/${browser}/manifest.json`)
       )
     },
