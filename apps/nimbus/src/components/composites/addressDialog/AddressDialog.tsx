@@ -7,13 +7,13 @@ import {
   DialogTrigger,
 } from '../../ui/dialog'
 import { BackButton } from '../BackButton'
-import { AddressDialogTriggerContent } from './AddressDialogTriggerContent'
+import { AddressDialogTrigger } from './AddressDialogTriggerContent'
 
 export function AddressDialog() {
   return (
     <Dialog>
       <DialogTrigger>
-        <AddressDialogTriggerContent />
+        <AddressDialogTrigger />
       </DialogTrigger>
       <DialogContent fullScreen>
         <DialogTitle>
