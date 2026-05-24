@@ -26,6 +26,14 @@ export function getSessionAddress() {
   return sessionAddress
 }
 
+export function setSessionAddress(value: string) {
+  sessionAddress = value
+}
+
+export function setSessionMnemonic(value: string) {
+  sessionMnemonic = value
+}
+
 export function setSession(mnemonic: string, address: string) {
   sessionMnemonic = mnemonic
   sessionAddress = address

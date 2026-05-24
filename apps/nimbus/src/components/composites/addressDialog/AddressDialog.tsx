@@ -1,19 +1,13 @@
-import {
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogDescription,
-  DialogTitle,
-  DialogTrigger,
-} from '../../ui/dialog'
+import { Dialog, DialogClose, DialogContent, DialogTitle, DialogTrigger } from '../../ui/dialog'
 import { BackButton } from '../BackButton'
-import { AddressDialogTriggerContent } from './AddressDialogTriggerContent'
+import { AddressDialogTrigger } from './AddressDialogTriggerContent'
+import { AddressDialogContent } from './AddressDialogContent'
 
 export function AddressDialog() {
   return (
     <Dialog>
       <DialogTrigger>
-        <AddressDialogTriggerContent />
+        <AddressDialogTrigger />
       </DialogTrigger>
       <DialogContent fullScreen>
         <DialogTitle>
@@ -21,10 +15,10 @@ export function AddressDialog() {
             <DialogClose>
               <BackButton />
             </DialogClose>
+            <span className="text-lg font-bold">Your Addresses</span>
           </div>
         </DialogTitle>
-        <DialogDescription>Are you sure?</DialogDescription>
-        <DialogClose>Cancel</DialogClose>
+        <AddressDialogContent />
       </DialogContent>
     </Dialog>
   )

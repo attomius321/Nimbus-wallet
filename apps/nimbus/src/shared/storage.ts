@@ -1,9 +1,18 @@
 import type { EncryptedVault } from '@repo/crypto'
 
+export type AccountType = {
+  address: string
+  index: number
+}
+
+export type AccountsType = AccountType[]
+
 export interface LocalStorage {
   vault?: EncryptedVault
   address?: string
+  accounts?: AccountsType
   initialized?: boolean
+  isSignedIn?: boolean
 }
 
 export async function getStorage<K extends keyof LocalStorage>(

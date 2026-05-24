@@ -13,7 +13,12 @@ type SendResponse = (response: VaultResponseMessage) => void
 export async function handleStoreVault(msg: StoreVaultMessage, sendResponse: SendResponse) {
   try {
     const vault = await encryptMnemonic(msg.mnemonic, msg.password)
-    const toStore: LocalStorage = { vault, address: msg.address, initialized: true }
+    const toStore: LocalStorage = {
+      vault,
+      address: msg.address,
+      accounts: [{ address: msg.address, index: 0 }],
+      initialized: true,
+    }
     await setStorage(toStore)
     setSession(msg.mnemonic, msg.address)
     sendResponse({ source: 'background', type: 'VAULT_RESPONSE', ok: true, address: msg.address })

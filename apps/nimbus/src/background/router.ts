@@ -3,6 +3,7 @@ import type { ExtensionMessage, WalletStateMessage } from '../shared/messages'
 import { handleStoreVault, handleUnlockVault } from './vault'
 import { lockVault, isUnlocked, getSessionAddress } from './session'
 import { getStorage } from '../shared/storage'
+import { generateNewAccount, selectAccount } from './accounts'
 
 type SendResponse = (response: unknown) => void
 
@@ -35,6 +36,14 @@ const router: Partial<
       }
       sendResponse(res)
     })
+    return true
+  },
+  CREATE_ADDRESS: (_, sendResponse) => {
+    generateNewAccount(sendResponse)
+    return true
+  },
+  SELECT_ADDRESS: (msg, sendResponse) => {
+    selectAccount(msg.address, sendResponse)
     return true
   },
 }
