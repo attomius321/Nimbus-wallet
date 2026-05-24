@@ -18,6 +18,7 @@ with coin_type hardcoded to Ethereum.
 4. Encrypt vault with AES-GCM, key derived via PBKDF2 (600k iterations)
 5. Lock/unlock
 6. Chrome side panel + firefox popup support
+7. BIP-44 multi-account derivation
 
 ### Security
 
