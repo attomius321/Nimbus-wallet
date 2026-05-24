@@ -11,5 +11,9 @@ export function useStorage<K extends keyof LocalStorage>(keys: K[]) {
       .finally(() => setLoading(false))
   }, [])
 
-  return { data, loading }
+  function refetch() {
+    getStorage(keys).then(setData)
+  }
+
+  return { data, loading, refetch }
 }

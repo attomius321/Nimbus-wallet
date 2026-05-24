@@ -25,5 +25,5 @@ export function generateAccount(mnemonic: string, accountIndex: number) {
   const hash = keccak_256(publicKey.slice(1)); // drop 0x04 prefix
   const address = toCheckSumAddress("0x" + toHex(hash.slice(-20)));
 
-  return { address };
+  return { address, accountIndex };
 }

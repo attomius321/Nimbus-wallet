@@ -74,6 +74,12 @@ export interface CreateAddressMessage {
   password: string
 }
 
+export interface SelectAddressMessage {
+  source: 'ui'
+  type: 'SELECT_ADDRESS'
+  address: string
+}
+
 export type ExtensionMessage =
   | EthRequestMessage
   | EthResponseMessage
@@ -86,3 +92,4 @@ export type ExtensionMessage =
   | VaultResponseMessage
   | WalletStateMessage
   | CreateAddressMessage
+  | SelectAddressMessage

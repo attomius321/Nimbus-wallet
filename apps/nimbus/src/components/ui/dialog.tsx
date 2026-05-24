@@ -42,7 +42,7 @@ function DialogContent({ className, children, fullScreen, side, ...props }: Dial
         className={cn(
           'fixed z-50 bg-neutral-900 shadow-xl transition-all duration-300',
           side && 'inset-y-0 right-0 w-full',
-          fullScreen && 'inset-0 rounded-none',
+          fullScreen && 'inset-0 rounded-none flex flex-col',
           !side &&
             !fullScreen &&
             'top-1/2 left-1/2 w-full max-w-sm -translate-x-1/2 -translate-y-1/2 rounded-xl border border-neutral-800 p-6',

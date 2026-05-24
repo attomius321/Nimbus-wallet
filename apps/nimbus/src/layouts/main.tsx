@@ -29,7 +29,6 @@ function App() {
 
   useEffect(() => {
     const listener = (message: WalletStateMessage) => {
-      console.log('hereee')
       if (message.type === 'WALLET_STATE') {
         setWalletState(message)
       }
