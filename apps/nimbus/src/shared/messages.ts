@@ -68,6 +68,12 @@ export interface WalletStateMessage {
   address?: string
 }
 
+export interface CreateAddressMessage {
+  source: 'ui'
+  type: 'CREATE_ADDRESS'
+  password: string
+}
+
 export type ExtensionMessage =
   | EthRequestMessage
   | EthResponseMessage
@@ -79,3 +85,4 @@ export type ExtensionMessage =
   | GetWalletStateMessage
   | VaultResponseMessage
   | WalletStateMessage
+  | CreateAddressMessage

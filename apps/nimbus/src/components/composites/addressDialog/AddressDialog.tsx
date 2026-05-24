@@ -1,15 +1,11 @@
-import {
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogDescription,
-  DialogTitle,
-  DialogTrigger,
-} from '../../ui/dialog'
+import { useStorage } from '@/hooks/useStorage'
+import { Dialog, DialogClose, DialogContent, DialogTitle, DialogTrigger } from '../../ui/dialog'
 import { BackButton } from '../BackButton'
 import { AddressDialogTrigger } from './AddressDialogTriggerContent'
 
 export function AddressDialog() {
+  const { data } = useStorage(['accounts'])
+
   return (
     <Dialog>
       <DialogTrigger>
@@ -23,8 +19,16 @@ export function AddressDialog() {
             </DialogClose>
           </div>
         </DialogTitle>
-        <DialogDescription>Are you sure?</DialogDescription>
-        <DialogClose>Cancel</DialogClose>
+        {data?.accounts?.length === 0 && (
+          <div className="flex h-full flex-col justify-center gap-4 text-white">
+            <p>No addresses found</p>
+          </div>
+        )}
+        <div className="flex h-full flex-col items-center justify-center gap-4 text-white">
+          {data?.accounts?.map((account) => (
+            <div key={account.address}>{account.address}</div>
+          ))}
+        </div>
       </DialogContent>
     </Dialog>
   )
