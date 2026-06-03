@@ -18,7 +18,7 @@ export function Dashboard() {
   }, [address])
 
   useEffect(() => {
-    if (!address) return
+    if (!address || balance === '0') return
     chrome.runtime
       .sendMessage({
         source: 'ui',
@@ -30,7 +30,7 @@ export function Dashboard() {
       .then((res) => {
         if (res.ok) setUsdValue(`$${res.price?.toFixed(2)}`)
       })
-  }, [address])
+  }, [balance])
 
   return (
     <div className="flex flex-col gap-6 p-4 pt-6">
