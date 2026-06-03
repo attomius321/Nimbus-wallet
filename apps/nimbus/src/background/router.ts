@@ -4,6 +4,7 @@ import { handleStoreVault, handleUnlockVault } from './vault'
 import { lockVault, isUnlocked, getSessionAddress } from './session'
 import { getStorage } from '../shared/storage'
 import { generateNewAccount, selectAccount } from './accounts'
+import { convertToCurrency, getBalance } from './eth'
 
 type SendResponse = (response: unknown) => void
 
@@ -44,6 +45,14 @@ const router: Partial<
   },
   SELECT_ADDRESS: (msg, sendResponse) => {
     selectAccount(msg.address, sendResponse)
+    return true
+  },
+  GET_BALANCE: (msg, sendResponse) => {
+    getBalance(msg.address, sendResponse)
+    return true
+  },
+  CONVERT_TO_CURRENCY: (msg, sendResponse) => {
+    convertToCurrency(msg.id, msg.vs_currency, msg.value, sendResponse)
     return true
   },
 }

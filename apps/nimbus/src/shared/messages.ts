@@ -80,6 +80,35 @@ export interface SelectAddressMessage {
   address: string
 }
 
+export interface GetBalanceMessage {
+  source: 'ui'
+  type: 'GET_BALANCE'
+  address: string
+}
+
+export interface BalanceResponseMessage {
+  source: 'background'
+  type: 'BALANCE_RESPONSE'
+  ok: boolean
+  balance?: string
+  error?: string
+}
+
+export interface ConvertToCurrencyMessage {
+  source: 'ui'
+  type: 'CONVERT_TO_CURRENCY'
+  id: string
+  vs_currency: string
+}
+
+export interface CurrencyConversionResponseMessage {
+  source: 'background'
+  type: 'CURRENCY_CONVERSION_RESPONSE'
+  ok: boolean
+  price?: number
+  error?: string
+}
+
 export type ExtensionMessage =
   | EthRequestMessage
   | EthResponseMessage
@@ -93,3 +122,7 @@ export type ExtensionMessage =
   | WalletStateMessage
   | CreateAddressMessage
   | SelectAddressMessage
+  | GetBalanceMessage
+  | BalanceResponseMessage
+  | ConvertToCurrencyMessage
+  | CurrencyConversionResponseMessage

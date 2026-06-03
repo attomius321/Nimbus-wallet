@@ -1,13 +1,40 @@
 import { useNavigate } from 'react-router-dom'
+import { useEffect, useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { MainBalance } from '@/components/composites/MainBalance'
+import { useWalletStore } from '@/store/walletStore'
 
 export function Dashboard() {
   const navigate = useNavigate()
+  const address = useWalletStore((s) => s.address)
+  const [balance, setBalance] = useState('0')
+  const [usdValue, setUsdValue] = useState('$0.00')
+
+  useEffect(() => {
+    if (!address) return
+    chrome.runtime.sendMessage({ source: 'ui', type: 'GET_BALANCE', address }).then((res) => {
+      if (res.ok) setBalance(res.balance)
+    })
+  }, [address])
+
+  useEffect(() => {
+    if (!address || balance === '0') return
+    chrome.runtime
+      .sendMessage({
+        source: 'ui',
+        type: 'CONVERT_TO_CURRENCY',
+        id: 'ethereum',
+        vs_currency: 'usd',
+        value: Number(balance),
+      })
+      .then((res) => {
+        if (res.ok) setUsdValue(`$${res.price?.toFixed(2)}`)
+      })
+  }, [balance])
 
   return (
     <div className="flex flex-col gap-6 p-4 pt-6">
-      <MainBalance symbol="ETH" balance="0" usdValue="$0.00" />
+      <MainBalance symbol="ETH" balance={balance} usdValue={usdValue} />
       <div className="flex justify-center gap-3">
         <Button variant="secondary" onClick={() => navigate('/send')}>
           Send

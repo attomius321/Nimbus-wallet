@@ -15,7 +15,7 @@ export function AddressDialog() {
             <DialogClose>
               <BackButton />
             </DialogClose>
-            <span className="text-lg font-bold">Your Addresses</span>
+            <span className="text-lg font-bold">Your Accounts</span>
           </div>
         </DialogTitle>
         <AddressDialogContent />
