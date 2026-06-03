@@ -13,7 +13,8 @@
   "scripts": {
     "build": "rm -rf dist && tsc && tsc-alias",
     "serve": "tsc && node dist/index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "vitest run",
+    "test:watch": "vitest"
   },
   "type": "module",
   "keywords": [],
@@ -29,6 +30,7 @@
     "@types/node": "^22.19.19",
     "eslint": "^9.39.1",
     "tsc-alias": "^1.8.17",
-    "typescript": "5.9.2"
+    "typescript": "5.9.2",
+    "vitest": "^4.1.7"
   }
 }
