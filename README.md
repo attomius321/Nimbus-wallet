@@ -33,7 +33,3 @@ with coin_type hardcoded to Ethereum.
 2. Vite + Turborepo monorepo
 3. @noble/curves / @noble/hashes for cryptography
 4. Chrome MV3 (service worker) + Firefox MV3 (background page)
-
-### Known limitations
-
-1. Chrome MV3 service workers terminate after ~30s of inactivity, wiping in-memory session state. A keepalive mechanism is required to maintain the unlocked session (maybe heartbeat would be a solution)
