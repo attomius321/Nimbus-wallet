@@ -20,7 +20,7 @@ export async function handleStoreVault(msg: StoreVaultMessage, sendResponse: Sen
       initialized: true,
     }
     await setStorage(toStore)
-    setSession(msg.mnemonic, msg.address)
+    await setSession(msg.mnemonic, msg.address)
     sendResponse({ source: 'background', type: 'VAULT_RESPONSE', ok: true, address: msg.address })
   } catch (err) {
     sendResponse({ source: 'background', type: 'VAULT_RESPONSE', ok: false, error: String(err) })
@@ -40,7 +40,7 @@ export async function handleUnlockVault(msg: UnlockVaultMessage, sendResponse: S
   }
   try {
     const mnemonic = await decryptMnemonic(stored.vault as EncryptedVault, msg.password)
-    setSession(mnemonic, stored.address as string)
+    await setSession(mnemonic, stored.address as string)
     sendResponse({
       source: 'background',
       type: 'VAULT_RESPONSE',
