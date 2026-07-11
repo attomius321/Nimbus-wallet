@@ -23,17 +23,21 @@ const router: Partial<
     return true
   },
   LOCK_VAULT: (_, sendResponse) => {
-    lockVault()
-    sendResponse({ ok: true })
+    lockVault().then(() => sendResponse({ ok: true }))
+    return true
   },
   GET_WALLET_STATE: (_, sendResponse) => {
-    getStorage(['initialized', 'address']).then((stored) => {
+    Promise.all([
+      getStorage(['initialized', 'address']),
+      isUnlocked(),
+      getSessionAddress(),
+    ]).then(([stored, unlocked, sessionAddress]) => {
       const res: WalletStateMessage = {
         source: 'background',
         type: 'WALLET_STATE',
         initialized: !!stored.initialized,
-        unlocked: isUnlocked(),
-        address: getSessionAddress() ?? undefined,
+        unlocked,
+        address: sessionAddress ?? undefined,
       }
       sendResponse(res)
     })

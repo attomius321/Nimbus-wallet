@@ -1,8 +1,7 @@
 /**
- * TO DO: Move to e short lived storage/offscreen page (WIP)
- * Extension Service workers are ephemeral and can be killed by the browser when not in use.
- * This module is used to store the session information (mnemonic and address) in memory while the service worker is alive.
- * When the service worker is killed, the session information will be lost and the user will have to unlock the vault again.
+ * Session state (mnemonic, address) is kept in chrome.storage.session — an in-memory
+ * store that survives MV3 service worker termination (unlike plain module-scope vars)
+ * and is cleared automatically when the browser closes.
  */
 
 export function sendWalletState({ address }: { address: string | null }) {
@@ -15,37 +14,39 @@ export function sendWalletState({ address }: { address: string | null }) {
   })
 }
 
-let sessionMnemonic: string | null = null
-let sessionAddress: string | null = null
-
-export function getSessionMnemonic() {
-  return sessionMnemonic
+interface SessionStorage {
+  sessionMnemonic: string | null
+  sessionAddress: string | null
 }
 
-export function getSessionAddress() {
-  return sessionAddress
+export async function getSessionMnemonic() {
+  const { sessionMnemonic } = (await chrome.storage.session.get('sessionMnemonic')) as SessionStorage
+  return sessionMnemonic ?? null
 }
 
-export function setSessionAddress(value: string) {
-  sessionAddress = value
+export async function getSessionAddress() {
+  const { sessionAddress } = (await chrome.storage.session.get('sessionAddress')) as SessionStorage
+  return sessionAddress ?? null
 }
 
-export function setSessionMnemonic(value: string) {
-  sessionMnemonic = value
+export async function setSessionAddress(value: string) {
+  await chrome.storage.session.set({ sessionAddress: value })
 }
 
-export function setSession(mnemonic: string, address: string) {
-  sessionMnemonic = mnemonic
-  sessionAddress = address
+export async function setSessionMnemonic(value: string) {
+  await chrome.storage.session.set({ sessionMnemonic: value })
+}
+
+export async function setSession(mnemonic: string, address: string) {
+  await chrome.storage.session.set({ sessionMnemonic: mnemonic, sessionAddress: address })
   sendWalletState({ address })
 }
 
-export function lockVault() {
-  sessionMnemonic = null
-  sessionAddress = null
+export async function lockVault() {
+  await chrome.storage.session.remove(['sessionMnemonic', 'sessionAddress'])
   sendWalletState({ address: null })
 }
 
-export function isUnlocked() {
-  return sessionMnemonic !== null
+export async function isUnlocked() {
+  return (await getSessionMnemonic()) !== null
 }
