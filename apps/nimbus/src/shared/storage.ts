@@ -1,4 +1,5 @@
 import type { EncryptedVault } from '@repo/crypto'
+import type { NetworkId } from './networks'
 
 export type AccountType = {
   address: string
@@ -13,6 +14,9 @@ export interface LocalStorage {
   accounts?: AccountsType
   initialized?: boolean
   isSignedIn?: boolean
+  network?: NetworkId
+  /** User-supplied RPC endpoint. Overrides the active network's public default. */
+  rpcUrl?: string
 }
 
 export async function getStorage<K extends keyof LocalStorage>(

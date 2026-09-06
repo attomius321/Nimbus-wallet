@@ -1,32 +1,18 @@
-const RPC_URL = `https://mainnet.infura.io/v3/${import.meta.env.VITE_INFURA_KEY}`
+import { errorMessage, rpcCall } from './rpc'
 
 export async function getBalance(address: string, sendResponse: (response: unknown) => void) {
   try {
-    const res = await fetch(RPC_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        jsonrpc: '2.0',
-        method: 'eth_getBalance',
-        params: [address, 'latest'],
-        id: 1,
-      }),
-    })
-    const json = (await res.json()) as { result?: string; error?: { message: string } }
-    if (json.error) {
-      sendResponse({
-        source: 'background',
-        type: 'BALANCE_RESPONSE',
-        ok: false,
-        error: json.error.message,
-      })
-      return
-    }
-    const wei = BigInt(json.result ?? '0x0')
+    const result = await rpcCall<string>('eth_getBalance', [address, 'latest'])
+    const wei = BigInt(result ?? '0x0')
     const eth = (Number(wei) / 1e18).toFixed(6)
     sendResponse({ source: 'background', type: 'BALANCE_RESPONSE', ok: true, balance: eth })
   } catch (e) {
-    sendResponse({ source: 'background', type: 'BALANCE_RESPONSE', ok: false, error: String(e) })
+    sendResponse({
+      source: 'background',
+      type: 'BALANCE_RESPONSE',
+      ok: false,
+      error: errorMessage(e),
+    })
   }
 }
 
@@ -62,7 +48,7 @@ export async function convertToCurrency(
       source: 'background',
       type: 'CURRENCY_CONVERSION_RESPONSE',
       ok: false,
-      error: String(e),
+      error: errorMessage(e),
     })
   }
 }
