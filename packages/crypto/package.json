@@ -21,16 +21,16 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@noble/curves": "^2.2.0",
-    "@noble/hashes": "^2.2.0",
-    "@scure/bip32": "^2.2.0",
-    "@scure/bip39": "^2.2.0"
+    "@noble/curves": "^2.4.0",
+    "@noble/hashes": "^2.4.0",
+    "@scure/bip32": "^2.4.0",
+    "@scure/bip39": "^2.4.0"
   },
   "devDependencies": {
-    "@types/node": "^22.19.19",
-    "eslint": "^9.39.1",
-    "tsc-alias": "^1.8.17",
+    "@types/node": "^22.20.1",
+    "eslint": "^9.39.5",
+    "tsc-alias": "^1.9.4",
     "typescript": "5.9.2",
-    "vitest": "^4.1.7"
+    "vitest": "^4.1.11"
   }
 }
